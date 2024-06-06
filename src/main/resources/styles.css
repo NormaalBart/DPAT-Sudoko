@@ -1,0 +1,38 @@
+.root {
+    -fx-padding: 10;
+}
+
+.menu-bar {
+    -fx-background-color: #ececec;
+    -fx-padding: 5;
+}
+
+.load-button {
+    -fx-max-width: 100%;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 0 1 0 0;
+}
+
+.left-pane, .center-pane, .information-pane {
+    -fx-padding: 10;
+    -fx-border-color: black;
+}
+
+.left-pane {
+    -fx-border-width: 0 1 0 0;
+    -fx-alignment: center;
+}
+
+.center-pane {
+    -fx-border-width: 0 1 0 0;
+    -fx-alignment: center;
+}
+
+.information-pane {
+    -fx-border-width: 0 0 0 1;
+}
+
+.label-centered {
+    -fx-alignment: center;
+}

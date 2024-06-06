@@ -5,15 +5,20 @@ package org.avans.sudoko;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.avans.sudoko.view.MainView;
+import javafx.stage.StageStyle;
+import org.avans.sudoko.controller.SudokoController;
+import org.avans.sudoko.view.SudokoView;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        MainView mainView = new MainView();
-        Scene scene = new Scene(mainView.getView(), 300, 200);
+        SudokoController controller = new SudokoController();
+        SudokoView sudokoView = new SudokoView(controller);
+        Scene scene = new Scene(sudokoView, 1200, 800);
+        primaryStage.setResizable(false);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
-        primaryStage.setTitle("JavaFX MVC Example");
+        primaryStage.setTitle("Sudoku App");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
