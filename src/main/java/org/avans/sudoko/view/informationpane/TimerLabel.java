@@ -2,13 +2,13 @@ package org.avans.sudoko.view.informationpane;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import org.avans.sudoko.controller.SudokoController;
+import org.avans.sudoko.controller.SudokuController;
 
 public class TimerLabel extends Label {
 
     private String timerText = "Timer: %d s";
 
-    public TimerLabel(SudokoController controller) {
+    public TimerLabel(SudokuController controller) {
         this.setText(String.format(timerText, 0));
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("label-centered");

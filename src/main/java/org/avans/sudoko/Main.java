@@ -6,8 +6,8 @@ package org.avans.sudoko;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.avans.sudoko.controller.SudokoController;
-import org.avans.sudoko.view.SudokoView;
+import org.avans.sudoko.controller.SudokuController;
+import org.avans.sudoko.view.SudokuView;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -16,9 +16,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SudokoController controller = new SudokoController();
-        SudokoView sudokoView = new SudokoView(controller);
-        Scene scene = new Scene(sudokoView, 1200, 800);
+        SudokuController controller = new SudokuController();
+        SudokuView sudokuView = new SudokuView(controller);
+        Scene scene = new Scene(sudokuView, 1200, 800);
         primaryStage.setResizable(false);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 

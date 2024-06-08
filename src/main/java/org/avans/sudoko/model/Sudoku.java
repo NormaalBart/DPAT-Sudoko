@@ -1,10 +1,10 @@
 package org.avans.sudoko.model;
 
-public class Sudoko {
+public class Sudoku {
 
     private final Cell[][] grid;
 
-    public Sudoko(int size) {
+    public Sudoku(int size) {
         this.grid = new Cell[size][size];
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {

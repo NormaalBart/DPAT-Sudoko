@@ -1,22 +1,22 @@
 package org.avans.sudoko.factory;
 
-import org.avans.sudoko.factory.parser.FourxFourSudokoParser;
-import org.avans.sudoko.factory.parser.ISudokoParser;
-import org.avans.sudoko.model.Sudoko;
+import org.avans.sudoko.factory.parser.FourxFourSudokuParser;
+import org.avans.sudoko.factory.parser.ISudokuParser;
+import org.avans.sudoko.model.Sudoku;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SudokoFactory {
+public class SudokuFactory {
 
-    private static SudokoFactory instance;
-    private Map<String, ISudokoParser> parsers;
+    private static SudokuFactory instance;
+    private Map<String, ISudokuParser> parsers;
 
-    private SudokoFactory() {
+    private SudokuFactory() {
         parsers = new HashMap<>();
         // Register parsers
-        parsers.put(".4x4", new FourxFourSudokoParser());
+        parsers.put(".4x4", new FourxFourSudokuParser());
         // Voeg hier andere parsers toe
         // parsers.put(".6x6", new SixxSixSudokoParser());
         // parsers.put(".9x9", new NinexNineSudokoParser());
@@ -24,9 +24,9 @@ public class SudokoFactory {
         // parsers.put(".samurai", new SamuraiSudokoParser());
     }
 
-    public static SudokoFactory getInstance() {
+    public static SudokuFactory getInstance() {
         if (instance == null) {
-            instance = new SudokoFactory();
+            instance = new SudokuFactory();
         }
         return instance;
     }
@@ -35,10 +35,10 @@ public class SudokoFactory {
         return List.copyOf(parsers.keySet());
     }
 
-    public Sudoko parseSudoko(String fileName, String content) {
+    public Sudoku parseSudoko(String fileName, String content) {
         for (String ext : parsers.keySet()) {
             if (fileName.endsWith(ext)) {
-                ISudokoParser parser = parsers.get(ext);
+                ISudokuParser parser = parsers.get(ext);
                 return parser.parse(content);
             }
         }

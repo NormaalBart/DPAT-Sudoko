@@ -3,20 +3,20 @@ package org.avans.sudoko.view.informationpane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import org.avans.sudoko.controller.SudokoController;
+import org.avans.sudoko.controller.SudokuController;
 import org.avans.sudoko.model.Cell;
-import org.avans.sudoko.view.SudokoView;
+import org.avans.sudoko.view.SudokuView;
 
 public class HelpNumbersPane extends GridPane {
 
-    public HelpNumbersPane(SudokoController controller, SudokoView sudokoView) {
+    public HelpNumbersPane(SudokuController controller, SudokuView sudokuView) {
         super();
         this.setAlignment(Pos.CENTER);
 
-        sudokoView.interestedCellProperty().addListener((obs, oldCell, newCell) -> {
+        sudokuView.interestedCellProperty().addListener((obs, oldCell, newCell) -> {
             this.getChildren().clear();
             if (newCell != null) {
-                int size = controller.getSudokoProperty().get().getSize();
+                int size = controller.getSudokuProperty().get().getSize();
                 createHelpGrid(newCell, size);
             }
         });

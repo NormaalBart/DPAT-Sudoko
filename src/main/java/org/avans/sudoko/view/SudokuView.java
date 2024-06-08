@@ -4,30 +4,30 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
-import org.avans.sudoko.controller.SudokoController;
+import org.avans.sudoko.controller.SudokuController;
 import org.avans.sudoko.model.Cell;
-import org.avans.sudoko.model.Sudoko;
+import org.avans.sudoko.model.Sudoku;
 import org.avans.sudoko.view.informationpane.InformationPane;
-import org.avans.sudoko.view.menubar.SudokoMenuBar;
-import org.avans.sudoko.view.other.NoSudokoPane;
-import org.avans.sudoko.view.sudoko.SudokoGridPane;
+import org.avans.sudoko.view.menubar.SudokuMenuBar;
+import org.avans.sudoko.view.other.NoSudokuPane;
+import org.avans.sudoko.view.sudoko.SudokuGridPane;
 
-public class SudokoView extends BorderPane {
+public class SudokuView extends BorderPane {
 
-    private final SudokoController controller;
+    private final SudokuController controller;
 
     private final ObjectProperty<Cell> interestedCell = new SimpleObjectProperty<Cell>();
 
-    public SudokoView(SudokoController sudokoController) {
-        this.controller = sudokoController;
+    public SudokuView(SudokuController sudokuController) {
+        this.controller = sudokuController;
 
-        var menuBar = new SudokoMenuBar(controller);
+        var menuBar = new SudokuMenuBar(controller);
 
         this.setPadding(new Insets(10));
         this.setTop(menuBar);
         this.setRight(this.createInformationPane());
 
-        this.controller.getSudokoProperty().subscribe(sudoko -> {
+        this.controller.getSudokuProperty().subscribe(sudoko -> {
             this.interestedCell.set(null);
             if (sudoko != null) {
                 this.setCenter(this.createSudokoGridPane(sudoko));
@@ -45,12 +45,12 @@ public class SudokoView extends BorderPane {
         return informationPane;
     }
 
-    private NoSudokoPane createNoSudokoPane() {
-        return new NoSudokoPane(controller);
+    private NoSudokuPane createNoSudokoPane() {
+        return new NoSudokuPane(controller);
     }
 
-    private SudokoGridPane createSudokoGridPane(Sudoko sudoko) {
-        return new SudokoGridPane(this, sudoko);
+    private SudokuGridPane createSudokoGridPane(Sudoku sudoku) {
+        return new SudokuGridPane(this, sudoku);
     }
 
     public void setInterestedCell(Cell cell) {

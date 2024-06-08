@@ -4,15 +4,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.avans.sudoko.controller.SudokoController;
-import org.avans.sudoko.view.menubar.SudokoFileChooser;
+import org.avans.sudoko.controller.SudokuController;
+import org.avans.sudoko.view.menubar.SudokuFileChooser;
 
-public class NoSudokoPane extends BorderPane {
+public class NoSudokuPane extends BorderPane {
 
-    private final SudokoController sudokoController;
+    private final SudokuController sudokuController;
 
-    public NoSudokoPane(SudokoController controller) {
-        this.sudokoController = controller;
+    public NoSudokuPane(SudokuController controller) {
+        this.sudokuController = controller;
         createCenterLabel();
     }
 
@@ -21,7 +21,7 @@ public class NoSudokoPane extends BorderPane {
         label.setStyle("-fx-font-size: 20px; -fx-cursor: hand;");
 
         label.setOnMouseClicked(event -> {
-            new SudokoFileChooser(this.sudokoController).openSudokuFile((Stage) this.getScene().getWindow());
+            new SudokuFileChooser(this.sudokuController).openSudokuFile((Stage) this.getScene().getWindow());
         });
 
         StackPane centerPane = new StackPane();

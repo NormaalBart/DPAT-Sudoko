@@ -5,25 +5,25 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import org.avans.sudoko.model.Sudoko;
+import org.avans.sudoko.model.Sudoku;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SudokoController {
+public class SudokuController {
 
-    private ObjectProperty<Sudoko> sudokoModel = new SimpleObjectProperty<>();
-    private IntegerProperty secondsElapsed;
-    private Timer timer;
+    private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
+    private final IntegerProperty secondsElapsed;
+    private final Timer timer;
 
-    public SudokoController() {
+    public SudokuController() {
         this.secondsElapsed = new SimpleIntegerProperty(0);
         this.timer = new Timer(true);
         this.startTimer();
     }
 
-    public void startGame(Sudoko sudoko) {
-        this.sudokoModel.set(sudoko);
+    public void startGame(Sudoku sudoku) {
+        this.sudokuModel.set(sudoku);
         this.secondsElapsed.set(0);
     }
 
@@ -31,12 +31,12 @@ public class SudokoController {
         return this.secondsElapsed;
     }
 
-    public ObjectProperty<Sudoko> getSudokoProperty() {
-        return sudokoModel;
+    public ObjectProperty<Sudoku> getSudokuProperty() {
+        return sudokuModel;
     }
 
-    public Sudoko getSudoko() {
-        return this.sudokoModel.get();
+    public Sudoku getSudoko() {
+        return this.sudokuModel.get();
     }
 
     private void startTimer() {

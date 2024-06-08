@@ -7,12 +7,18 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class Cell {
 
     private boolean set = false;
 
     private IntegerProperty value = new SimpleIntegerProperty();
     private ListProperty<Integer> hulpValue = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    private List<ValidatorGroup> validatorGroups = new ArrayList<>();
 
     public Cell(int value) {
         this.value.set(value);
@@ -53,5 +59,20 @@ public class Cell {
 
     public ListProperty<Integer> hulpValueProperty() {
         return hulpValue;
+    }
+
+    public void addValidator(ValidatorGroup validatorGroup) {
+        if (validatorGroup.showVisual() && validatorGroups.stream().anyMatch(ValidatorGroup::showVisual)) {
+            return;
+        }
+        this.validatorGroups.add(validatorGroup);
+    }
+
+    public boolean hasValidator(ValidatorGroup validatorGroup) {
+        return this.validatorGroups.contains(validatorGroup);
+    }
+
+    public Optional<ValidatorGroup> getVisualValidatorGroup() {
+        return this.validatorGroups.stream().filter(ValidatorGroup::showVisual).findFirst();
     }
 }
