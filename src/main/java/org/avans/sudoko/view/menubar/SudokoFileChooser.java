@@ -2,6 +2,7 @@ package org.avans.sudoko.view.menubar;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.avans.sudoko.controller.SudokoController;
 import org.avans.sudoko.factory.SudokoFactory;
 import org.avans.sudoko.model.Sudoko;
 
@@ -12,9 +13,11 @@ import java.util.List;
 
 public class SudokoFileChooser {
 
+    private final SudokoController sudokoController;
     private FileChooser fileChooser;
 
-    public SudokoFileChooser() {
+    public SudokoFileChooser(SudokoController controller) {
+        this.sudokoController = controller;
         this.fileChooser = new FileChooser();
         this.configureFileChooser();
     }
@@ -30,17 +33,18 @@ public class SudokoFileChooser {
         this.fileChooser.getExtensionFilters().add(extFilter);
     }
 
-    public Sudoko openSudokuFile(Stage stage) {
+    public void openSudokuFile(Stage stage) {
         File file = this.fileChooser.showOpenDialog(stage);
         if (file != null) {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+
                 SudokoFactory factory = SudokoFactory.getInstance();
-                return factory.parseSudoko(file.getName(), content);
+                Sudoko sudoko = factory.parseSudoko(file.getName(), content);
+                this.sudokoController.startGame(sudoko);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return null;
     }
 }

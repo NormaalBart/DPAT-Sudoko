@@ -15,7 +15,7 @@ public class SudokoMenuBar extends MenuBar {
         MenuItem openItem = new MenuItem("Sudoko openen");
 
         openItem.setOnAction(event -> {
-            new SudokoFileChooser().openSudokuFile((Stage) this.getScene().getWindow());
+            new SudokoFileChooser(controller).openSudokuFile((Stage) this.getScene().getWindow());
         });
 
         fileMenu.getItems().add(openItem);
