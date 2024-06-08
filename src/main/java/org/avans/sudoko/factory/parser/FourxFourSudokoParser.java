@@ -1,8 +1,6 @@
 package org.avans.sudoko.factory.parser;
 
 import org.avans.sudoko.model.Sudoko;
-import org.avans.sudoko.model.Cell;
-import org.avans.sudoko.model.GroupCell;
 
 public class FourxFourSudokoParser implements ISudokoParser {
 
@@ -17,7 +15,9 @@ public class FourxFourSudokoParser implements ISudokoParser {
             int value = Character.getNumericValue(text.charAt(i));
             int x = i / 4;
             int y = i % 4;
-            sudoko.setValue(x, y, value);
+            if(value != 0) {
+                sudoko.setValue(x, y, value, true);
+            }
         }
 
         return sudoko;

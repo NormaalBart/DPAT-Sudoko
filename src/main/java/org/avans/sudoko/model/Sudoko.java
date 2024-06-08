@@ -13,8 +13,9 @@ public class Sudoko {
         }
     }
 
-    public void setValue(int row, int col, int value) {
-        this.grid[row][col].setValue(value);
+    public void setValue(int row, int col, int value, boolean set) {
+        Cell cell = grid[row][col];
+        cell.setValue(value, set);
     }
 
     public Cell getCell(int row, int col) {

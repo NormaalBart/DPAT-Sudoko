@@ -3,12 +3,15 @@ package org.avans.sudoko.view.sudoko;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import org.avans.sudoko.model.Sudoko;
+import org.avans.sudoko.view.SudokoView;
 
 public class SudokoGridPane extends GridPane {
 
-    private Sudoko sudokoModel;
+    private final SudokoView sudokoView;
+    private final Sudoko sudokoModel;
 
-    public SudokoGridPane(Sudoko sudokoModel) {
+    public SudokoGridPane(SudokoView sudokoView, Sudoko sudokoModel) {
+        this.sudokoView = sudokoView;
         this.sudokoModel = sudokoModel;
         this.setAlignment(Pos.CENTER);
         createGrid();
@@ -18,14 +21,9 @@ public class SudokoGridPane extends GridPane {
         int size = this.sudokoModel.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                SudokoCellView cellView = new SudokoCellView(sudokoModel.getCell(i, j));
+                SudokoCellView cellView = new SudokoCellView(this.sudokoView, this.sudokoModel.getCell(i, j));
                 this.add(cellView, j, i);
             }
         }
-    }
-
-    public void updateGrid() {
-        this.getChildren().clear();
-        createGrid();
     }
 }

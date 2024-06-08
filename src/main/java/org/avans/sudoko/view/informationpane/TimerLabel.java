@@ -1,8 +1,7 @@
 package org.avans.sudoko.view.informationpane;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.scene.control.Label;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import org.avans.sudoko.controller.SudokoController;
 
 public class TimerLabel extends Label {

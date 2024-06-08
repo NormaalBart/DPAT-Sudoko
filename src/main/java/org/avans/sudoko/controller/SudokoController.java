@@ -24,14 +24,19 @@ public class SudokoController {
 
     public void startGame(Sudoko sudoko) {
         this.sudokoModel.set(sudoko);
+        this.secondsElapsed.set(0);
     }
 
     public IntegerProperty getSecondsElapsed() {
         return this.secondsElapsed;
     }
 
-    public ObjectProperty<Sudoko> getModel() {
+    public ObjectProperty<Sudoko> getSudokoProperty() {
         return sudokoModel;
+    }
+
+    public Sudoko getSudoko() {
+        return this.sudokoModel.get();
     }
 
     private void startTimer() {
