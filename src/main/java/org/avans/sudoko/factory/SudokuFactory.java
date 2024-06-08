@@ -1,7 +1,8 @@
 package org.avans.sudoko.factory;
 
-import org.avans.sudoko.factory.parser.FourxFourSudokuParser;
+import org.avans.sudoko.factory.parser.GeneralSudokuParser;
 import org.avans.sudoko.factory.parser.ISudokuParser;
+import org.avans.sudoko.factory.parser.JigsawSudokuParser;
 import org.avans.sudoko.model.Sudoku;
 
 import java.util.HashMap;
@@ -16,11 +17,12 @@ public class SudokuFactory {
     private SudokuFactory() {
         parsers = new HashMap<>();
         // Register parsers
-        parsers.put(".4x4", new FourxFourSudokuParser());
+        parsers.put(".4x4", new GeneralSudokuParser(4));
+        parsers.put(".6x6", new GeneralSudokuParser(6, 2, 3));
+        parsers.put(".9x9", new GeneralSudokuParser(9));
+        parsers.put(".jigsaw", new JigsawSudokuParser());
+
         // Voeg hier andere parsers toe
-        // parsers.put(".6x6", new SixxSixSudokoParser());
-        // parsers.put(".9x9", new NinexNineSudokoParser());
-        // parsers.put(".jigsaw", new JigsawSudokoParser());
         // parsers.put(".samurai", new SamuraiSudokoParser());
     }
 
