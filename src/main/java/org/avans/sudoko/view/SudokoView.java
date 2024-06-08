@@ -20,14 +20,10 @@ public class SudokoView extends BorderPane {
         this.informationPane = new InformationPane(controller);
 
         var menuBar = new SudokoMenuBar(controller);
-        var loadButton = new Button("Load Sudoku");
-
-        loadButton.setOnAction(event -> controller.loadSudoku());
 
         this.setPadding(new Insets(10));
         this.setTop(menuBar);
         this.setCenter(sudokuGrid);
-        this.setLeft(loadButton);
         this.setRight(informationPane);
 
         informationPane.prefHeightProperty().bind(this.heightProperty());
