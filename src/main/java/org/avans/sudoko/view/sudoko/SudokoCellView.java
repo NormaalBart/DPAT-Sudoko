@@ -31,7 +31,7 @@ public class SudokoCellView extends StackPane {
         this.setStyle("-fx-border-color: black; -fx-alignment: center;");
         this.setPrefSize(50, 50);
 
-        this.setOnMouseClicked(mouseEvent -> onClick(mouseEvent, cell));
+        this.setOnMouseClicked(mouseEvent -> onClick(cell));
         this.setOnKeyTyped(keyEvent -> handleKeyTyped(keyEvent, cell));
 
         // Change background color when focused
@@ -49,7 +49,7 @@ public class SudokoCellView extends StackPane {
 
     private void handleKeyTyped(KeyEvent keyEvent, Cell cell) {
         if (cell.isSet()) {
-            return; // Do nothing if the cell is set
+            return;
         }
         String character = keyEvent.getCharacter();
         System.out.println(character);
@@ -62,7 +62,7 @@ public class SudokoCellView extends StackPane {
         }
     }
 
-    private void onClick(MouseEvent mouseEvent, Cell cell) {
+    private void onClick(Cell cell) {
         this.sudokoView.setInterestedCell(cell);
         this.requestFocus();
     }
