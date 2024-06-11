@@ -9,21 +9,11 @@ import org.avans.sudoko.model.Sudoku;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class SudokuFactory {
 
     private static SudokuFactory instance;
-    private Map<String, ISudokuParser> parsers;
-
-    private SudokuFactory() {
-        parsers = new HashMap<>();
-        // Register parsers
-        parsers.put(".4x4", new GeneralSudokuParser(4));
-        parsers.put(".6x6", new GeneralSudokuParser(6, 2, 3));
-        parsers.put(".9x9", new GeneralSudokuParser(9));
-        parsers.put(".jigsaw", new JigsawSudokuParser());
-        parsers.put(".samurai", new SamuraiSudokuParser());
-    }
 
     public static SudokuFactory getInstance() {
         if (instance == null) {
@@ -32,14 +22,25 @@ public class SudokuFactory {
         return instance;
     }
 
+    private final Map<String, Supplier<ISudokuParser>> parsers;
+
+    private SudokuFactory() {
+        parsers = new HashMap<>();
+        parsers.put(".4x4", () -> new GeneralSudokuParser(4));
+        parsers.put(".6x6", () -> new GeneralSudokuParser(6, 2, 3));
+        parsers.put(".9x9", () -> new GeneralSudokuParser(9));
+        parsers.put(".jigsaw", JigsawSudokuParser::new);
+        parsers.put(".samurai", SamuraiSudokuParser::new);
+    }
+
     public List<String> getSupportedExtensions() {
         return List.copyOf(parsers.keySet());
     }
 
-    public Sudoku parseSudoko(String fileName, String content) {
+    public Sudoku parseSudoku(String fileName, String content) {
         for (String ext : parsers.keySet()) {
             if (fileName.endsWith(ext)) {
-                ISudokuParser parser = parsers.get(ext);
+                ISudokuParser parser = parsers.get(ext).get();
                 return parser.parse(content);
             }
         }

@@ -8,10 +8,10 @@ import org.avans.sudoko.view.SudokuView;
 
 public class InformationPane extends VBox {
 
-    public InformationPane(SudokuView sudokuView, SudokuController controller) {
+    public InformationPane(SudokuView sudokuView) {
         super(10);
-        TimerLabel timerLabel = new TimerLabel(controller);
-        HelpNumbersPane helpNumbersPane = new HelpNumbersPane(controller, sudokuView);
+        TimerLabel timerLabel = new TimerLabel();
+        HelpNumbersPane helpNumbersPane = new HelpNumbersPane(sudokuView);
         this.getChildren().addAll(helpNumbersPane, timerLabel);
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10));

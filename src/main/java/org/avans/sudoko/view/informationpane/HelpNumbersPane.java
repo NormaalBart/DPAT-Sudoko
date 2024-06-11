@@ -10,17 +10,14 @@ import org.avans.sudoko.view.SudokuView;
 
 public class HelpNumbersPane extends GridPane {
 
-    private SudokuController sudokuController;
-
-    public HelpNumbersPane(SudokuController controller, SudokuView sudokuView) {
+    public HelpNumbersPane(SudokuView sudokuView) {
         super();
-        this.sudokuController = controller;
         this.setAlignment(Pos.CENTER);
 
         sudokuView.interestedCellProperty().addListener((obs, oldCell, newCell) -> {
             this.getChildren().clear();
             if (newCell != null) {
-                int size = controller.getSudokuProperty().get().getSize();
+                int size = SudokuController.getInstance().getSudokuProperty().get().getSize();
                 createHelpGrid(newCell, size);
             }
         });
@@ -50,7 +47,7 @@ public class HelpNumbersPane extends GridPane {
         });
 
         numberLabel.setOnMouseClicked(event -> {
-            this.sudokuController.executeCommand(new ToggleHulpValueCommand(cell, number));
+            SudokuController.getInstance().executeCommand(new ToggleHulpValueCommand(cell, number));
         });
 
         return numberLabel;

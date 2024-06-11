@@ -20,8 +20,12 @@ public class Cell {
 
     private List<ValidatorGroup> validatorGroups = new ArrayList<>();
 
+    public Cell() {
+        this(0);
+    }
+
     public Cell(int value) {
-        this.value.set(value);
+        this.setValue(value);
     }
 
     public IntegerProperty valueProperty() {
@@ -68,11 +72,11 @@ public class Cell {
         this.validatorGroups.add(validatorGroup);
     }
 
-    public boolean hasValidator(ValidatorGroup validatorGroup) {
-        return this.validatorGroups.contains(validatorGroup);
-    }
-
     public Optional<ValidatorGroup> getVisualValidatorGroup() {
         return this.validatorGroups.stream().filter(ValidatorGroup::showVisual).findFirst();
+    }
+
+    public List<ValidatorGroup> getValidatorGroups() {
+        return validatorGroups;
     }
 }

@@ -21,7 +21,7 @@ public class JigsawSudokuParser implements ISudokuParser {
         Sudoku sudoku = new Sudoku(SIZE);
 
         String[] entries = text.split("=");
-        if (entries.length != 81) {
+        if (entries.length != SIZE * SIZE) {
             throw new IllegalArgumentException("Invalid number of entries for 9x9 Sudoku.");
         }
 
@@ -39,7 +39,9 @@ public class JigsawSudokuParser implements ISudokuParser {
             }
             ValidatorGroup group = groupMap.get(groupIndex);
             Cell cell = sudoku.getCell(x, y);
-            cell.setValue(value);
+            if (value != 0) {
+                sudoku.setValue(x, y, value, true);
+            }
             group.addCell(cell);
         }
 

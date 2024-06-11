@@ -8,13 +8,13 @@ import org.avans.sudoko.controller.SudokuController;
 
 public class SudokuMenuBar extends MenuBar {
 
-    public SudokuMenuBar(SudokuController controller) {
+    public SudokuMenuBar() {
         Menu fileMenu = new Menu("File");
 
         MenuItem openItem = new MenuItem("Sudoku openen");
 
         openItem.setOnAction(event -> {
-            new SudokuFileChooser(controller).openSudokuFile((Stage) this.getScene().getWindow());
+            new SudokuFileChooser().openSudokuFile((Stage) this.getScene().getWindow());
         });
 
         fileMenu.getItems().add(openItem);

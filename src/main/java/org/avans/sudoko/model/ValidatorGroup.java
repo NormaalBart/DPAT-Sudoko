@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ValidatorGroup {
 
-    private List<Cell> cells;
+    private final List<Cell> cells;
     private final int maxNumber;
     private boolean showVisual = false;
 

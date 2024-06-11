@@ -3,6 +3,7 @@ package org.avans.sudoko.view.sudoko;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import org.avans.sudoko.controller.SudokuController;
 import org.avans.sudoko.model.Cell;
 import org.avans.sudoko.model.Sudoku;
 import org.avans.sudoko.model.ValidatorGroup;

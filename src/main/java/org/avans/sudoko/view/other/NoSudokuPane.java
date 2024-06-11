@@ -9,10 +9,8 @@ import org.avans.sudoko.view.menubar.SudokuFileChooser;
 
 public class NoSudokuPane extends BorderPane {
 
-    private final SudokuController sudokuController;
 
-    public NoSudokuPane(SudokuController controller) {
-        this.sudokuController = controller;
+    public NoSudokuPane() {
         createCenterLabel();
     }
 
@@ -21,7 +19,7 @@ public class NoSudokuPane extends BorderPane {
         label.getStyleClass().add("label-style");
 
         label.setOnMouseClicked(event -> {
-            new SudokuFileChooser(this.sudokuController).openSudokuFile((Stage) this.getScene().getWindow());
+            new SudokuFileChooser().openSudokuFile((Stage) this.getScene().getWindow());
         });
 
         StackPane centerPane = new StackPane();

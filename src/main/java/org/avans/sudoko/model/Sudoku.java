@@ -1,5 +1,8 @@
 package org.avans.sudoko.model;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Sudoku {
 
     private final int size;
@@ -10,7 +13,7 @@ public class Sudoku {
         this.size = size;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                grid[x][y] = new Cell(0);
+                grid[x][y] = new Cell();
             }
         }
     }
@@ -35,5 +38,13 @@ public class Sudoku {
 
     public Cell[][] getGrid() {
         return this.grid;
+    }
+
+    public boolean isValid() {
+        return Arrays.stream(grid)
+                .flatMap(Arrays::stream)
+                .filter(Objects::nonNull)
+                .flatMap(cell -> cell.getValidatorGroups().stream())
+                .allMatch(ValidatorGroup::isValid);
     }
 }

@@ -16,8 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SudokuController controller = new SudokuController();
-        SudokuView sudokuView = new SudokuView(controller);
+        SudokuView sudokuView = new SudokuView();
         Scene scene = new Scene(sudokuView, 1200, 800);
         primaryStage.setResizable(false);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());

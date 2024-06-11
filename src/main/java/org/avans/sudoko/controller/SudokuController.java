@@ -1,58 +1,67 @@
 package org.avans.sudoko.controller;
 
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.avans.sudoko.command.ICommand;
+import org.avans.sudoko.model.GameState;
 import org.avans.sudoko.model.Sudoku;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import org.avans.sudoko.timer.*;
 
 public class SudokuController {
 
-    private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
-    private final IntegerProperty secondsElapsed;
-    private final Timer timer;
+    private static SudokuController instance;
 
-    public SudokuController() {
-        this.secondsElapsed = new SimpleIntegerProperty(0);
-        this.timer = new Timer(true);
-        this.startTimer();
+    public static SudokuController getInstance() {
+        if (instance == null) {
+            instance = new SudokuController();
+        }
+        return instance;
+    }
+
+    private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
+    private final ObjectProperty<GameState> gameState = new SimpleObjectProperty<>();
+    private final TimerComposite timerComposite;
+    private final SimpleTimer simpleTimer;
+
+    private SudokuController() {
+        timerComposite = new TimerComposite();
+        simpleTimer = new SimpleTimer();
+        timerComposite.add(simpleTimer);
+        this.timerComposite.accept(new StartTimerVisitor());
+        this.gameState.set(GameState.NO_GAME);
     }
 
     public void startGame(Sudoku sudoku) {
         this.sudokuModel.set(sudoku);
-        this.secondsElapsed.set(0);
+        this.timerComposite.accept(new ResetTimerVisitor());
+        this.gameState.set(GameState.STARTED);
     }
 
-    public IntegerProperty getSecondsElapsed() {
-        return this.secondsElapsed;
+    public IntegerProperty secondsElapsedProperty() {
+        return simpleTimer.secondsElapsedProperty();
     }
 
     public ObjectProperty<Sudoku> getSudokuProperty() {
         return sudokuModel;
     }
 
-    public Sudoku getSudoko() {
+    public Sudoku getSudoku() {
         return this.sudokuModel.get();
+    }
+
+    public ObjectProperty<GameState> getGameStateProperty() {
+        return gameState;
     }
 
     public void executeCommand(ICommand command) {
         command.execute();
-        //TODO CHECK IF SUDOKO IS ALL GOOD!
-    }
-
-    private void startTimer() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    secondsElapsed.set(secondsElapsed.get() + 1);
-                });
+        if (this.sudokuModel.get() != null) {
+            if (!this.sudokuModel.get().isValid()) {
+                return;
             }
-        }, 1000, 1000);
+            this.gameState.set(GameState.FINISHED);
+            timerComposite.accept(new StopTimerVisitor());
+        }
     }
 }
