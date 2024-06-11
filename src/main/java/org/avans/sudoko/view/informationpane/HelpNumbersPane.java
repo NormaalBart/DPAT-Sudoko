@@ -3,14 +3,18 @@ package org.avans.sudoko.view.informationpane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import org.avans.sudoko.command.ToggleHulpValueCommand;
 import org.avans.sudoko.controller.SudokuController;
 import org.avans.sudoko.model.Cell;
 import org.avans.sudoko.view.SudokuView;
 
 public class HelpNumbersPane extends GridPane {
 
+    private SudokuController sudokuController;
+
     public HelpNumbersPane(SudokuController controller, SudokuView sudokuView) {
         super();
+        this.sudokuController = controller;
         this.setAlignment(Pos.CENTER);
 
         sudokuView.interestedCellProperty().addListener((obs, oldCell, newCell) -> {
@@ -23,7 +27,7 @@ public class HelpNumbersPane extends GridPane {
     }
 
     private void createHelpGrid(Cell cell, int size) {
-        int gridSize = (int) Math.sqrt(size); // Determine the grid size based on the Sudoku size
+        int gridSize = (int) Math.sqrt(size);
 
         for (int i = 1; i <= size; i++) {
             Label numberLabel = createNumberLabel(cell, i);
@@ -33,15 +37,30 @@ public class HelpNumbersPane extends GridPane {
 
     private Label createNumberLabel(Cell cell, int number) {
         Label numberLabel = new Label(String.valueOf(number));
-        numberLabel.setPrefSize(30, 30);
-        numberLabel.setAlignment(Pos.CENTER);
-        numberLabel.setStyle(cell.getHulpValue().contains(number) ? "-fx-background-color: green;" : "-fx-background-color: red;");
+        numberLabel.getStyleClass().add("number-label");
+        updateLabelStyle(numberLabel, cell, number);
+
+        cell.hulpValueProperty().subscribe((list) -> {
+            if (list.contains(number)) {
+                numberLabel.getStyleClass().add("selected-label");
+            } else {
+                numberLabel.getStyleClass().remove("selected-label");
+
+            }
+        });
 
         numberLabel.setOnMouseClicked(event -> {
-            cell.toggleHulpValue(number);
-            numberLabel.setStyle(cell.getHulpValue().contains(number) ? "-fx-background-color: green;" : "-fx-background-color: red;");
+            this.sudokuController.executeCommand(new ToggleHulpValueCommand(cell, number));
         });
 
         return numberLabel;
+    }
+
+    private void updateLabelStyle(Label label, Cell cell, int number) {
+        if (cell.getHulpValue().contains(number)) {
+            label.getStyleClass().add("selected-label");
+        } else {
+            label.getStyleClass().remove("selected-label");
+        }
     }
 }

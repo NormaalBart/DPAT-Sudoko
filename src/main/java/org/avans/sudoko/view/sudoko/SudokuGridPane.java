@@ -7,6 +7,9 @@ import org.avans.sudoko.model.Cell;
 import org.avans.sudoko.model.Sudoku;
 import org.avans.sudoko.model.ValidatorGroup;
 import org.avans.sudoko.view.SudokuView;
+import org.avans.sudoko.view.sudoko.cell.BaseCellView;
+import org.avans.sudoko.view.sudoko.cell.EmptyCellView;
+import org.avans.sudoko.view.sudoko.cell.SudokuCellView;
 
 import java.util.*;
 
@@ -31,22 +34,27 @@ public class SudokuGridPane extends GridPane {
 
     private void createGrid() {
         Map<ValidatorGroup, Color> colorMap = new HashMap<>();
-        int size = this.sudokuModel.getSize();
+        int size = this.sudokuModel.getGrid().length;
 
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 Cell cell = this.sudokuModel.getCell(x, y);
-                Optional<ValidatorGroup> optionalGroup = cell.getVisualValidatorGroup();
-                Color backgroundColor;
-
-                if (optionalGroup.isPresent()) {
-                    ValidatorGroup group = optionalGroup.get();
-                    backgroundColor = colorMap.computeIfAbsent(group, k -> getNextColor(colorMap.size()));
+                BaseCellView cellView;
+                if (cell == null) {
+                    cellView = new EmptyCellView();
                 } else {
-                    backgroundColor = Color.WHITE;
-                }
+                    Optional<ValidatorGroup> optionalGroup = cell.getVisualValidatorGroup();
+                    Color backgroundColor;
 
-                SudokuCellView cellView = new SudokuCellView(this.sudokuView, cell, backgroundColor);
+                    if (optionalGroup.isPresent()) {
+                        ValidatorGroup group = optionalGroup.get();
+                        backgroundColor = colorMap.computeIfAbsent(group, k -> getNextColor(colorMap.size()));
+                    } else {
+                        backgroundColor = Color.WHITE;
+                    }
+
+                    cellView = new SudokuCellView(this.sudokuView, cell, backgroundColor);
+                }
                 this.add(cellView, y, x);
             }
         }

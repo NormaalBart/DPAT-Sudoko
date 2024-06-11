@@ -9,35 +9,33 @@ import java.util.Map;
 
 public class JigsawSudokuParser implements ISudokuParser {
 
+    private static final int SIZE = 9;
+
     @Override
     public Sudoku parse(String text) {
-        int size = 9; // Assuming standard 9x9 Sudoku
         if (!text.startsWith("SumoCueV1=")) {
             throw new IllegalArgumentException("Invalid input format for Jigsaw Sudoku.");
         }
         text = text.substring("SumoCueV1=".length());
 
-        Sudoku sudoku = new Sudoku(size);
+        Sudoku sudoku = new Sudoku(SIZE);
 
-        System.out.println(text);
         String[] entries = text.split("=");
-        System.out.println("Jigsaw Sudoku: " + entries.length);
         if (entries.length != 81) {
             throw new IllegalArgumentException("Invalid number of entries for 9x9 Sudoku.");
         }
 
-        System.out.println("Jigsaw Sudoku: " + entries[0]);
         Map<Integer, ValidatorGroup> groupMap = new HashMap<>();
 
         for (int index = 0; index < entries.length; index++) {
             String entry = entries[index];
-            int value = Integer.parseInt(entry.charAt(0) + "");
+            int value = Character.getNumericValue(entry.charAt(0));
             int groupIndex = entry.charAt(2);
-            int x = index / size;
-            int y = index % size;
+            int x = index / SIZE;
+            int y = index % SIZE;
 
             if (!groupMap.containsKey(groupIndex)) {
-                groupMap.put(groupIndex, new ValidatorGroup(size, true));
+                groupMap.put(groupIndex, new ValidatorGroup(SIZE, true));
             }
             ValidatorGroup group = groupMap.get(groupIndex);
             Cell cell = sudoku.getCell(x, y);

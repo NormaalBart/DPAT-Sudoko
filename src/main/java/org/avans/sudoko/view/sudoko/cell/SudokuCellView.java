@@ -1,47 +1,38 @@
-package org.avans.sudoko.view.sudoko;
+package org.avans.sudoko.view.sudoko.cell;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import org.avans.sudoko.model.Cell;
 import org.avans.sudoko.view.SudokuView;
 
-public class SudokuCellView extends StackPane {
+public class SudokuCellView extends BaseCellView {
 
     private final Label label;
     private final GridPane helpGrid;
     private final SudokuView sudokuView;
-    private final Rectangle background;
 
     public SudokuCellView(SudokuView sudokuView, Cell cell, Color backgroundColor) {
+        super(backgroundColor);
         this.sudokuView = sudokuView;
         label = new Label();
-        label.setStyle("-fx-font-size: 18; -fx-font-weight: bold;"); // Duidelijkere cijfers
         helpGrid = new GridPane();
         helpGrid.setAlignment(Pos.TOP_LEFT);
         helpGrid.setVgap(1);
         helpGrid.setHgap(1);
 
-        background = new Rectangle(50, 50);
-        background.setFill(backgroundColor);
-
         this.setValue(cell.getValue());
         cell.valueProperty().addListener((obs, oldVal, newVal) -> setValue(newVal));
         cell.hulpValueProperty().addListener((obs, oldVal, newVal) -> updateHelpValues(newVal));
 
-        this.getChildren().addAll(background, helpGrid, label);
-        this.setStyle("-fx-border-color: black; -fx-alignment: center;");
-        this.setPrefSize(50, 50);
+        this.getChildren().addAll(helpGrid, label);
 
         this.setOnMouseClicked(mouseEvent -> onClick(mouseEvent, cell));
         this.setOnKeyTyped(keyEvent -> handleKeyTyped(keyEvent, cell));
 
-        // Change background color when focused
         this.focusedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 background.setFill(Color.GOLD);
@@ -94,14 +85,9 @@ public class SudokuCellView extends StackPane {
 
     private void updateBoldStyle(boolean isSet) {
         if (isSet) {
-            label.setStyle("-fx-font-weight: bold;");
+            label.getStyleClass().add("extrabold");
         } else {
-            label.setStyle("-fx-font-weight: normal;");
+            label.getStyleClass().remove("extrabold");
         }
-    }
-
-    private void updateBackgroundColor(Color backgroundColor) {
-        background.setFill(backgroundColor);
-
     }
 }

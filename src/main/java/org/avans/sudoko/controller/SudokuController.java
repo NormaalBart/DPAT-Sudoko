@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import org.avans.sudoko.command.ICommand;
 import org.avans.sudoko.model.Sudoku;
 
 import java.util.Timer;
@@ -37,6 +38,11 @@ public class SudokuController {
 
     public Sudoku getSudoko() {
         return this.sudokuModel.get();
+    }
+
+    public void executeCommand(ICommand command) {
+        command.execute();
+        //TODO CHECK IF SUDOKO IS ALL GOOD!
     }
 
     private void startTimer() {

@@ -18,7 +18,7 @@ public class NoSudokuPane extends BorderPane {
 
     private void createCenterLabel() {
         Label label = new Label("Laat een sudoko!");
-        label.setStyle("-fx-font-size: 20px; -fx-cursor: hand;");
+        label.getStyleClass().add("label-style");
 
         label.setOnMouseClicked(event -> {
             new SudokuFileChooser(this.sudokuController).openSudokuFile((Stage) this.getScene().getWindow());

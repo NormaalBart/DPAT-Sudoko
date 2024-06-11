@@ -1,5 +1,6 @@
 .root {
-    -fx-padding: 10;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Arial";
 }
 
 .menu-bar {
@@ -35,4 +36,34 @@
 
 .label-centered {
     -fx-alignment: center;
+}
+
+.base-cell {
+    -fx-alignment: center;
+    -fx-border-color: black;
+}
+
+.transparent-background {
+    -fx-background-color: transparent;
+}
+
+.label-style {
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+
+.number-label {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.selected-label {
+    -fx-background-color: gold;
+}
+
+.extrabold {
+    -fx-font-weight: bold;
 }
