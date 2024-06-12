@@ -11,6 +11,16 @@ import org.avans.sudoko.timer.*;
 public class SudokuController {
 
     private static SudokuController instance;
+    private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
+    private final ObjectProperty<GameState> gameState = new SimpleObjectProperty<>();
+    private final TimerComposite timerComposite;
+    private final SimpleTimer simpleTimer;
+    private SudokuController() {
+        timerComposite = new TimerComposite();
+        simpleTimer = new SimpleTimer();
+        timerComposite.add(simpleTimer);
+        this.gameState.set(GameState.NO_GAME);
+    }
 
     public static SudokuController getInstance() {
         if (instance == null) {
@@ -19,22 +29,9 @@ public class SudokuController {
         return instance;
     }
 
-    private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
-    private final ObjectProperty<GameState> gameState = new SimpleObjectProperty<>();
-    private final TimerComposite timerComposite;
-    private final SimpleTimer simpleTimer;
-
-    private SudokuController() {
-        timerComposite = new TimerComposite();
-        simpleTimer = new SimpleTimer();
-        timerComposite.add(simpleTimer);
-        this.timerComposite.accept(new StartTimerVisitor());
-        this.gameState.set(GameState.NO_GAME);
-    }
-
     public void startGame(Sudoku sudoku) {
         this.sudokuModel.set(sudoku);
-        this.timerComposite.accept(new ResetTimerVisitor());
+        this.timerComposite.accept(new StartTimerVisitor());
         this.gameState.set(GameState.STARTED);
     }
 
@@ -63,5 +60,11 @@ public class SudokuController {
             this.gameState.set(GameState.FINISHED);
             timerComposite.accept(new StopTimerVisitor());
         }
+    }
+
+    public void restartGame() {
+        this.gameState.set(GameState.NO_GAME);
+        this.sudokuModel.set(null);
+        this.timerComposite.accept(new ResetTimerVisitor());
     }
 }

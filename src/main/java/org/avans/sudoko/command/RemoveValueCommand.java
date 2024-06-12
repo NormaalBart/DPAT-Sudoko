@@ -5,6 +5,6 @@ import org.avans.sudoko.model.Cell;
 public class RemoveValueCommand extends SetValueCommand {
 
     public RemoveValueCommand(Cell cell) {
-        super(cell, 0);
+        super(cell, Cell.EMPTY_CELL);
     }
 }
