@@ -27,7 +27,7 @@ public class SudokuTest {
     @Test
     public void testLoadNewGame() {
         assertNotNull(this.controller.getSudoku(), "Sudoku game should be loaded");
-        assertTrue(this.controller.getGameStateProperty().get() == GameState.STARTED);
+        assertEquals(this.controller.getGameStateProperty().get(), GameState.STARTED);
     }
 
     @Test
@@ -44,14 +44,14 @@ public class SudokuTest {
         assertEquals(6, this.sudoku.getCell(1, 0).getValue());
 
         // Test if the game is not complete
-        assertFalse(this.controller.getGameStateProperty().get() == GameState.FINISHED, "Sudoku should not be complete");
+        assertNotEquals(this.controller.getGameStateProperty().get(), GameState.FINISHED, "Sudoku should not be complete");
 
         // Fill the board to complete the game
         // For simplicity, let's assume this method fills the board correctly
         this.fillBoard(this.sudoku);
 
         // Now the game should be complete
-        assertTrue(this.controller.getGameStateProperty().get() == GameState.FINISHED, "Sudoku should be complete");
+        assertEquals(this.controller.getGameStateProperty().get(), GameState.FINISHED, "Sudoku should be complete");
     }
 
     private void fillBoard(Sudoku sudoku) {

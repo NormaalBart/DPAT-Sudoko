@@ -24,7 +24,7 @@ public class CellTest {
     @Test
     public void testIsValid() {
         cell.setValue(5);
-        assertTrue(cell.getValue() == 5);
+        assertEquals(cell.getValue(), 5);
         cell.setValue(0);
         assertFalse(cell.isSet());
     }
