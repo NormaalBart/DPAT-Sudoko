@@ -9,11 +9,19 @@ import java.util.TimerTask;
 
 public class SimpleTimer implements ITimerComponent {
     private final IntegerProperty secondsElapsed;
-    private final Timer timer;
+    private boolean running = false;
 
     public SimpleTimer() {
         this.secondsElapsed = new SimpleIntegerProperty(0);
-        this.timer = new Timer(true);
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (running) {
+                    Platform.runLater(() -> secondsElapsed.set(secondsElapsed.get() + 1));
+                }
+            }
+        }, 1000, 1000);
     }
 
     public IntegerProperty secondsElapsedProperty() {
@@ -21,16 +29,11 @@ public class SimpleTimer implements ITimerComponent {
     }
 
     public void start() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> secondsElapsed.set(secondsElapsed.get() + 1));
-            }
-        }, 1000, 1000);
+        this.running = true;
     }
 
     public void stop() {
-        timer.cancel();
+        this.running = false;
     }
 
     public void reset() {

@@ -28,13 +28,12 @@ public class SudokuController {
         timerComposite = new TimerComposite();
         simpleTimer = new SimpleTimer();
         timerComposite.add(simpleTimer);
-        this.timerComposite.accept(new StartTimerVisitor());
         this.gameState.set(GameState.NO_GAME);
     }
 
     public void startGame(Sudoku sudoku) {
         this.sudokuModel.set(sudoku);
-        this.timerComposite.accept(new ResetTimerVisitor());
+        this.timerComposite.accept(new StartTimerVisitor());
         this.gameState.set(GameState.STARTED);
     }
 
@@ -63,5 +62,11 @@ public class SudokuController {
             this.gameState.set(GameState.FINISHED);
             timerComposite.accept(new StopTimerVisitor());
         }
+    }
+
+    public void restartGame() {
+        this.gameState.set(GameState.NO_GAME);
+        this.sudokuModel.set(null);
+        this.timerComposite.accept(new ResetTimerVisitor());
     }
 }
