@@ -8,6 +8,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SimpleTimer implements ITimerComponent {
+
+    private static final int SECOND = 1000;
+
     private final IntegerProperty secondsElapsed;
     private boolean running = false;
 
@@ -21,7 +24,7 @@ public class SimpleTimer implements ITimerComponent {
                     Platform.runLater(() -> secondsElapsed.set(secondsElapsed.get() + 1));
                 }
             }
-        }, 1000, 1000);
+        }, SECOND, SECOND);
     }
 
     public IntegerProperty secondsElapsedProperty() {

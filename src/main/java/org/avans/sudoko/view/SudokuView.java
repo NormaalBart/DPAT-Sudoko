@@ -16,6 +16,9 @@ import org.avans.sudoko.view.sudoko.SudokuGridPane;
 
 public class SudokuView extends BorderPane {
 
+    private static final double PREF_WIDTH_INFORMATION_PANE = 0.25;
+    private static final int INSET_INFORMATION_PANE = 10;
+
     private final ObjectProperty<Cell> interestedCell = new SimpleObjectProperty<Cell>();
 
     public SudokuView() {
@@ -45,8 +48,8 @@ public class SudokuView extends BorderPane {
     private InformationPane createInformationPane() {
         InformationPane informationPane = new InformationPane(this);
         informationPane.prefHeightProperty().bind(this.heightProperty());
-        informationPane.prefWidthProperty().bind(this.widthProperty().multiply(0.25));
-        BorderPane.setMargin(informationPane, new Insets(10));
+        informationPane.prefWidthProperty().bind(this.widthProperty().multiply(PREF_WIDTH_INFORMATION_PANE));
+        BorderPane.setMargin(informationPane, new Insets(INSET_INFORMATION_PANE));
         return informationPane;
     }
 

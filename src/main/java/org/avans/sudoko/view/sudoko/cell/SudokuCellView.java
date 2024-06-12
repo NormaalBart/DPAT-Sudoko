@@ -62,7 +62,7 @@ public class SudokuCellView extends BaseCellView {
     }
 
     private void setValue(Number value) {
-        this.label.setText(value.intValue() == 0 ? "" : String.valueOf(value));
+        this.label.setText(value.intValue() == Cell.EMPTY_CELL ? "" : String.valueOf(value));
         updateBoldStyle(cell.isSet());
     }
 
