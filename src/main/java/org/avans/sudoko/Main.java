@@ -6,7 +6,6 @@ package org.avans.sudoko;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.avans.sudoko.controller.SudokuController;
 import org.avans.sudoko.view.SudokuView;
 
 public class Main extends Application {

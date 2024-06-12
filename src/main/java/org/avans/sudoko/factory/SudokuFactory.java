@@ -14,14 +14,6 @@ import java.util.function.Supplier;
 public class SudokuFactory {
 
     private static SudokuFactory instance;
-
-    public static SudokuFactory getInstance() {
-        if (instance == null) {
-            instance = new SudokuFactory();
-        }
-        return instance;
-    }
-
     private final Map<String, Supplier<ISudokuParser>> parsers;
 
     private SudokuFactory() {
@@ -31,6 +23,13 @@ public class SudokuFactory {
         parsers.put(".9x9", () -> new GeneralSudokuParser(9));
         parsers.put(".jigsaw", JigsawSudokuParser::new);
         parsers.put(".samurai", SamuraiSudokuParser::new);
+    }
+
+    public static SudokuFactory getInstance() {
+        if (instance == null) {
+            instance = new SudokuFactory();
+        }
+        return instance;
     }
 
     public List<String> getSupportedExtensions() {

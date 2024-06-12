@@ -14,13 +14,10 @@ import java.util.Optional;
 public class Cell {
 
     public static final int EMPTY_CELL = 0;
-
-    private boolean set = false;
-
     private final IntegerProperty value = new SimpleIntegerProperty();
     private final ListProperty<Integer> hulpValue = new SimpleListProperty<>(FXCollections.observableArrayList());
-
     private final List<ValidatorGroup> validatorGroups = new ArrayList<>();
+    private boolean set = false;
 
     public Cell() {
         this(EMPTY_CELL);

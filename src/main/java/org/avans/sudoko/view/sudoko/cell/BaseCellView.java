@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class BaseCellView extends StackPane {
-    protected final Rectangle background;
     protected final static double CELL_SIZE = 20;
+    protected final Rectangle background;
 
     public BaseCellView(Color backgroundColor) {
         background = new Rectangle(CELL_SIZE, CELL_SIZE);
