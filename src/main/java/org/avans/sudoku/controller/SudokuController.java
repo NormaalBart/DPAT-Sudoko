@@ -15,6 +15,7 @@ public class SudokuController {
     private final ObjectProperty<GameState> gameState = new SimpleObjectProperty<>();
     private final TimerComposite timerComposite;
     private final SimpleTimer simpleTimer;
+
     private SudokuController() {
         timerComposite = new TimerComposite();
         simpleTimer = new SimpleTimer();

@@ -14,7 +14,7 @@ public class NoSudokuPane extends BorderPane {
     }
 
     private void createCenterLabel() {
-        Label label = new Label("Laat een sudoko!");
+        Label label = new Label("Laad een sudoku!");
         label.getStyleClass().add("label-style");
 
         label.setOnMouseClicked(event -> {
