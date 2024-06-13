@@ -31,7 +31,9 @@ public class SudokuController {
     }
 
     public void startGame(Sudoku sudoku) {
+        this.gameState.set(GameState.NO_GAME);
         this.sudokuModel.set(sudoku);
+        this.timerComposite.accept(new ResetTimerVisitor());
         this.timerComposite.accept(new StartTimerVisitor());
         this.gameState.set(GameState.STARTED);
     }
