@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import org.avans.sudoku.view.SudokuView;
 
 public class Main extends Application {
-    private final int WIDTH = 1200;
-    private final int HEIGHT = 800;
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 800;
 
     public static void main(String[] args) {
         launch(args);
@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         SudokuView sudokuView = new SudokuView();
-        Scene scene = new Scene(sudokuView, this.WIDTH, this.HEIGHT);
+        Scene scene = new Scene(sudokuView, WIDTH, HEIGHT);
         primaryStage.setResizable(false);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
