@@ -40,8 +40,10 @@ public class Cell {
     }
 
     public void setValue(int value, boolean set) {
-        this.value.set(value);
-        this.set = set;
+        if (value < 10 && value > 0) {
+            this.value.set(value);
+            this.set = set;
+        }
     }
 
     public boolean isSet() {
