@@ -1,6 +1,8 @@
 package org.avans.sudoku.command;
 
+import org.avans.sudoku.controller.SudokuController;
 import org.avans.sudoku.model.Cell;
+import org.avans.sudoku.model.Sudoku;
 
 public class SetValueCommand implements ICommand {
 
@@ -15,6 +17,9 @@ public class SetValueCommand implements ICommand {
     @Override
     public void execute() {
         if (cell.isSet()) {
+            return;
+        }
+        if(SudokuController.getInstance().shouldCheck() && value > SudokuController.getInstance().getSudoku().getSize()) {
             return;
         }
         cell.setValue(value);

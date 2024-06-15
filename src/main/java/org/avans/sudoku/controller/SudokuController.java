@@ -1,8 +1,6 @@
 package org.avans.sudoku.controller;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import org.avans.sudoku.command.ICommand;
 import org.avans.sudoku.model.GameState;
 import org.avans.sudoku.model.Sudoku;
@@ -13,6 +11,7 @@ public class SudokuController {
     private static SudokuController instance;
     private final ObjectProperty<Sudoku> sudokuModel = new SimpleObjectProperty<>();
     private final ObjectProperty<GameState> gameState = new SimpleObjectProperty<>();
+    private final BooleanProperty checkInput = new SimpleBooleanProperty(false);
     private final TimerComposite timerComposite;
     private final SimpleTimer simpleTimer;
 
@@ -69,5 +68,17 @@ public class SudokuController {
         this.gameState.set(GameState.NO_GAME);
         this.sudokuModel.set(null);
         this.timerComposite.accept(new ResetTimerVisitor());
+    }
+
+    public void toggleCheck() {
+        checkInput.setValue(!checkInput.getValue());
+    }
+
+    public boolean shouldCheck() {
+        return checkInput.getValue();
+    }
+
+    public Property<Boolean> checkProperty() {
+        return this.checkInput;
     }
 }
