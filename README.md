@@ -1,18 +1,25 @@
+Studenten:
+- Bart Kempen (2173481)
+- Sebastiaan van Mourik (2171430)
+
+
 Patronen:
 
-CreatiePatronen:
-
+CreatiePatronen: Goed
 - Factory
 - Late binding Factory
 - Singleton
 
-Composite:
+Structuurpatronen: Ruim voldoende
 
 - Composite pattern
 - mvc
 
-Behavioral Design Patterns:
-
+Gedragspatronen: Goed
 - Visitor
 - Commands
 - Observer
+
+Modulariteit: Goed
+
+Kwaliteit: Goed
