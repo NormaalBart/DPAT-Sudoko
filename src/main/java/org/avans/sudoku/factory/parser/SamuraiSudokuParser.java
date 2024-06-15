@@ -15,7 +15,6 @@ public class SamuraiSudokuParser implements ISudokuParser {
     @Override
     public Sudoku parse(String text) {
         String[] grids = text.split(System.lineSeparator());
-
         assert grids.length == GRID_AMOUNT;
         assert Arrays.stream(grids).anyMatch(grid -> grid.length() != GRID_PER_SUDOKU * GRID_PER_SUDOKU);
 

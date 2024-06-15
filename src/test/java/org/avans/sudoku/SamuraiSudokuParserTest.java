@@ -1,0 +1,38 @@
+package org.avans.sudoku;
+
+import org.avans.sudoku.factory.parser.SamuraiSudokuParser;
+import org.avans.sudoku.model.Sudoku;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class SamuraiSudokuParserTest {
+
+    private SamuraiSudokuParser parser;
+
+    @BeforeEach
+    void setUp() {
+        parser = new SamuraiSudokuParser();
+    }
+
+    @Test
+    void testParse() {
+        String content = "InvalidFormat800000700003050206700300095000091840000007002000062000000000000609080000002903000\n" +
+                "149000000000091000000060000007120008000000340405008067000000000000007020000050003\n" +
+                "000000000000008000000004000010600005030070080800005010000900000000800000000000000\n" +
+                "900060000030400000000000000390800407065000000200037600000080000000190000000000914\n" +
+                "000402800000080902000000000000610000400800000098750000670008001901060700002000009";
+        assertThrows(AssertionError.class, () -> parser.parse(content));
+    }
+
+    @Test
+    void testParseInvalidEntryLengthSamuraiSudoku() {
+        String content = "800000700003050206700300095000091840000007002000062000000000000609080000002903000\n" +
+                "149000000000091000000060000007120008000000340405008067000000000000007020000050003\n" +
+                "000000000000008000000004000010600005030070080800005010000900000000800000000000000\n" +
+                "900060000030400000000000000390800407065000000200037600000080000000190000000000914\n" +
+                "00040280000008090200000000000061000040080000009875000067000800190106070000200000";  // One character less
+        assertThrows(AssertionError.class, () -> parser.parse(content));
+    }
+}

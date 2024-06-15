@@ -37,4 +37,8 @@ public class ValidatorGroup {
         }
         return true;
     }
+
+    public List<Cell> getCells() {
+        return cells;
+    }
 }
