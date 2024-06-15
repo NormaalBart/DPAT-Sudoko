@@ -13,9 +13,9 @@ public class JigsawSudokuParser implements ISudokuParser {
 
     @Override
     public Sudoku parse(String text) {
-        if (!text.startsWith("SumoCueV1=")) {
-            throw new IllegalArgumentException("Invalid input format for Jigsaw Sudoku.");
-        }
+
+        assert text.startsWith("SumoCueV1=");
+
         text = text.substring("SumoCueV1=".length());
 
         Sudoku sudoku = new Sudoku(SIZE);
